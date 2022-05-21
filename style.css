@@ -1,0 +1,34 @@
+html {
+    font-size: 10px;    
+}
+body {
+    background-color: lavender;
+    font-family: monospace;
+    width: 75%;
+    margin: auto;
+}
+
+header {
+    border: solid red 1px;
+    background-color: skyblue;
+
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+h1 {
+    text-align: right;
+    font-size: 3.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+img {
+    display: inline-block;
+    object-fit: contain;
+}
