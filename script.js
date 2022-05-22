@@ -1,30 +1,23 @@
 /**
  * NOTES TO SELF
- * TO DO
- * add event listener to drop down
+ * Optional
+ * error condition: 
  */
 
 const URL = 'https://ghibliapi.herokuapp.com/films';
 let movies = [];
 let selectedMovie;
 
-console.log(URL);
-
 //call API and initialize movies select
 fetch(URL).
-then( (response) => { 
-    //console.log(`response:  ${response}`);
-    return response.json(); 
-}).
-then( (json) => {
-    //console.log(`json:  ${json}`);
+then(response => response.json()).
+then((json) => {
     movies = json;   
     initializeMoviesSelect();
 }).
 catch( (error) => {
     console.log(error);
 });
-
 
 //Add a review
 let form = document.querySelector("#reviewForm");
@@ -44,16 +37,11 @@ form.addEventListener("submit", event => {
 
 //Show People 
 showPeople = document.querySelector("#show-people");
-showPeople.addEventListener("click", event => {
-    console.log(`button click`)
-    let ol = document.querySelector("#peopleList")
-    //ol.innerHTML='';
-    console.log(`selectedMovie: ${selectedMovie}`);
-    
+showPeople.addEventListener("click", event => {    
     if (selectedMovie === undefined) return;
+    let ol = document.querySelector("#peopleList")
 
     selectedMovie.people.forEach(personURL => {
-        console.log(`personURL: ${personURL}`);
         let li = document.createElement("li");
         if (personURL === "https://ghibliapi.herokuapp.com/people/") {
             li.textContent = 'There are no people in this movie!';
@@ -62,9 +50,8 @@ showPeople.addEventListener("click", event => {
         };
 
         fetch(personURL).
-        then( response => response.json()).
-        then( (json) => {
-            console.log(`json: ${json}`)
+        then(response => response.json()).
+        then((json) => {
             li.textContent = json.name
             ol.append(li);
         }).catch(error => {
@@ -79,11 +66,12 @@ resetReviews.addEventListener("click", event => {
    const reviewList = document.querySelector("#reviewList")
    reviewList.textContent = '';
 });
+
 /**
  * Populates #movieSelect with movies and sets eventListeners for each
  */
 const initializeMoviesSelect = () => {
-    //get select element and create options
+    //populate movieSelect with movie titles
     const select = document.querySelector("#movieSelect");
     movies.forEach(movie => {
         let option = document.createElement("option");
@@ -92,14 +80,11 @@ const initializeMoviesSelect = () => {
         select.append(option);
     });
 
-    //add event listener to set selectedMovie and update #movieDetails
+    //update selectedMovie and display #movieDetails
     select.addEventListener("change", event => {
-        //console.log(`getMovieObj -> title: ${getMovieObj(event.target.value).title}`);
         selectedMovie = getMovieObj(event.target.value);
-        //console.log(`sselectedMovie -> title: ${selectedMDetails`);
-        
         let movieDetails = document.querySelector("#movieDetails");
-        movieDetails.innerHTML = '';
+        movieDetails.innerHTML = ''; 
 
         let movieTitle = document.createElement("h3");
         movieTitle.textContent = selectedMovie.title;
@@ -112,28 +97,17 @@ const initializeMoviesSelect = () => {
         let movieDescription = document.createElement("p");
         movieDescription.textContent = selectedMovie.description;       
         movieDetails.append(movieDescription);
-
-
-        /**
-        let movieTitle = document.querySelector("#movieTitle");
-        let movieYear = document.querySelector("#movieYear");
-        let movieDescription = document.querySelector("#movieDescription");
-        movieTitle.textContent = selectedMovie.title;
-        movieYear.textContent = selectedMovie.release_date;;
-        movieDescription.textContent = selectedMovie.description;       
-         */
         
+        //clear list of people when selected movie is changed
         let ol = document.querySelector("#peopleList")
         ol.innerHTML='';
-    
     });
-
 };
 
-
-//console.log(movies);
-console.log(`debug`);
-
+/**
+ * returns movie object from movies array
+ * @param {string} id - The ID of the movie 
+ */
 const getMovieObj = (id) => {
     return movies.find(element => element.id === id);
 };

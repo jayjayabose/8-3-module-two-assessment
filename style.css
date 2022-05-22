@@ -1,6 +1,7 @@
 html {
     font-size: 12px;    
 }
+
 body {
     background-color: lavender;
     font-family: monospace;
@@ -17,6 +18,7 @@ header {
 .movieTitle{
     font-weight: bolder;
 }
+
 .header {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -29,11 +31,4 @@ h1 {
 
 h2 {
     font-size: 2rem;
-}
-
-#
-
-img {
-    display: inline-block;
-    object-fit: contain;
 }
