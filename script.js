@@ -92,18 +92,36 @@ const initializeMoviesSelect = () => {
         select.append(option);
     });
 
-    //add event listener to set selectedMovie and update #movieResult
+    //add event listener to set selectedMovie and update #movieDetails
     select.addEventListener("change", event => {
         //console.log(`getMovieObj -> title: ${getMovieObj(event.target.value).title}`);
         selectedMovie = getMovieObj(event.target.value);
-        //console.log(`selectedMovie -> title: ${selectedMovie}`);
+        //console.log(`sselectedMovie -> title: ${selectedMDetails`);
+        
+        let movieDetails = document.querySelector("#movieDetails");
+        movieDetails.innerHTML = '';
 
+        let movieTitle = document.createElement("h3");
+        movieTitle.textContent = selectedMovie.title;
+        movieDetails.append(movieTitle);
+
+        let movieYear = document.createElement("p");
+        movieYear.textContent = selectedMovie.release_date;
+        movieDetails.append(movieYear);
+
+        let movieDescription = document.createElement("p");
+        movieDescription.textContent = selectedMovie.description;       
+        movieDetails.append(movieDescription);
+
+
+        /**
         let movieTitle = document.querySelector("#movieTitle");
         let movieYear = document.querySelector("#movieYear");
         let movieDescription = document.querySelector("#movieDescription");
         movieTitle.textContent = selectedMovie.title;
         movieYear.textContent = selectedMovie.release_date;;
         movieDescription.textContent = selectedMovie.description;       
+         */
         
         let ol = document.querySelector("#peopleList")
         ol.innerHTML='';

@@ -1,5 +1,5 @@
 html {
-    font-size: 10px;    
+    font-size: 12px;    
 }
 body {
     background-color: lavender;
@@ -30,6 +30,8 @@ h1 {
 h2 {
     font-size: 2rem;
 }
+
+#
 
 img {
     display: inline-block;
